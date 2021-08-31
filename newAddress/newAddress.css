@@ -1,0 +1,23 @@
+.buttonDiv{
+    border-top:1px solid silver; 
+}
+
+.cardHeaderClass:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: 0;
+    bottom: 0;
+    width: calc(100% - 20px);
+    height: calc(100% - 0px);
+    border-left: solid 4px #c77400;
+}
+.cardHeaderClass {
+    position: relative;
+}
+.nds-float_right.nds-m-right_medium.nds-verticalcenter {
+ position: relative; 
+ top: -15px; 
+ right: -10px;
+}

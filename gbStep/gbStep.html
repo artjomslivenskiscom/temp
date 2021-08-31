@@ -1,0 +1,96 @@
+<template>
+    <template if:true={jsonDef.bAccordionActive}>
+		<div if:true={loading}>
+            <vlocity_cmt-spinner variant="brand"
+                alternative-text="Loading.."
+                theme="nds"
+                size="medium">
+            </vlocity_cmt-spinner>
+        </div>				   
+        <div class="unauthFlowInterFontWrapper">
+            <div class="orderHeader" if:false={jsonData.MacFlow}>
+			<div if:false={hideOrderConfirmation}>
+                <c-general-order-header-unauth enter-prise-quote-id={jsonData.EnterpriseQuoteId} omni-json-data={jsonData} omni-script-header-def={scriptHeaderDef} is-type-disconnect ={jsonData.isTypeDisconnect} order-number={jsonData.OrderNumber} is-auth-user={jsonData.AuthUser} is-supp={jsonData.IsSupp} customer-number={customerNumber}></c-general-order-header-unauth>
+            </div>
+			</div>
+			<template if:true={jsonData.MacFlow}>	
+				<template if:false={hideOrderConfirmation}>
+					<c-general-order-header enter-prise-quote-id={jsonData.EnterpriseQuoteId} is-type-disconnect ={jsonData.isTypeDisconnect} order-number={jsonData.OrderNumber} is-auth-user={jsonData.AuthUser} is-supp={jsonData.IsSupp} customer-number={customerNumber} customer-name={customerName} mac-flow={jsonData.MacFlow}></c-general-order-header>	
+				</template>
+            </template>
+			<template if:true={showError}>
+				<c-generic-error-message
+					error-data = {errorData}
+				></c-generic-error-message>
+			</template>
+			<template if:true={tracker}>
+			 <template if:false={hideOrderConfirmation}>
+				<c-gb-pizza-tracker json-def={jsonDef}></c-gb-pizza-tracker>
+			</template>
+			</template>
+            <h1 class="nds-page-header__title nds-align_absolute-center nds-text-align_center nds-medium-size_8-of-12 nds-p-vertical_large nds-step_label">
+            {jsonDef.propSetMap.label}
+           
+            </h1>
+            <div class="nds-medium-size_12-of-12 nds-align_absolute-center">
+                <div class="nds-grid nds-wrap nds-col_padded nds-size_1-of-1 omniscript-step__body">
+                    <slot>
+                    </slot>
+                </div>
+            </div>
+			<div if:false={hideOrderConfirmation}>
+				<c-gb-total-bar due-total={oneTimeTotal} recurring-total={monthlyTotal}>
+					<div slot="rightText">
+						<a if:true={showDownloadButton} class="url" target="_blank" href="/shopbuy/s/?c__layout=newport&c__target=c%3AunauthPDFGenEnglish">
+							<button class="nds-button nds-p-horizontal_small" onclick={buildUrl}>Download Order (PDF)</button>
+						</a>
+						<button if:true={showSaveForLaterbtn} class="nds-button nds-p-horizontal_small nds-text-align_left" onclick={saveOmni}>Save For Later</button> 
+					</div>
+					<div slot="locations"></div>
+					<div slot="totalbarBtn">
+						<c-gb-step-navigation omni-json-data={jsonData} omni-json-def={jsonDef} omni-script-header-def={scriptHeaderDef} validate-status={invalidFlag}></c-gb-step-navigation></div>
+				</c-gb-total-bar>
+			</div>
+        </div>
+    </template>
+    <div if:true={showSpinner} class="ctl-spinner-container">
+        <div class="nds-spinner_container ng-scope" if:true={showSpinner}>
+             <div class="nds-spinner_brand nds-spinner" aria-hidden="false" role="alert">
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                     <circle cx="12.5%" cy="50" r="12.5%" transform="translate(0 -8.16018)">
+                         <animateTransform attributeName="transform" dur="1s" type="translate" values="0 15 ; 0 -15; 0 15" repeatCount="indefinite" begin="0.1"></animateTransform>
+                     </circle>
+                     <circle cx="50%" cy="50" r="12.5%" transform="translate(0 -9.44012)">
+                         <animateTransform attributeName="transform" dur="1s" type="translate" values="0 10 ; 0 -10; 0 10" repeatCount="indefinite" begin="0.2"></animateTransform>
+                     </circle>
+                     <circle cx="87.5%" cy="50" r="12.5%" transform="translate(0 -3.27994)">
+                         <animateTransform attributeName="transform" dur="1s" type="translate" values="0 5 ; 0 -5; 0 5" repeatCount="indefinite" begin="0.3"></animateTransform>
+                     </circle>
+                 </svg>
+             </div>
+         </div>
+     </div>
+     <div if:true={openModal}>	 
+     <vlocity_cmt-omniscript-modal data-omni-key='omnimodal'
+                    layout={layout}
+                    theme = "slds"
+                    triggered-on-step=false
+                    class="gbModalContainer">
+        <div slot="header">
+            <h3 class="nds-float_left">Save For Later</h3>
+            <vlocity_cmt-icon icon-name="utility:close"  size="small" color="#000000" extraclass="nds-icon-text-default" class="nds-b2b-icons nds-float_right" onclick={closeModal}></vlocity_cmt-icon>
+        </div>
+        <div slot="content">
+            <div class="modalBody nds-p-around_none">
+                <div class="nds-m-top_x-small nds-m-bottom_medium contentheadercolor"><div class="nds-m-bottom_x-small contentfirstheader">To re-enter this saved cart, please copy and save the following URL:</div><div class="wrapurl">{resumeUrl}</div></div>               
+                </div>
+            </div>
+        <div slot="footer">
+            <div class="modalButtonsContainer">
+                <button class="modalButtons cancel cancelbutton" onclick={closeModal}>CANCEL</button>
+                <button class="modalButtons confirm nds-m-right_none okbutton" onclick={closeModal}>OK</button>
+            </div>
+        </div>
+        </vlocity_cmt-omniscript-modal> 	 
+	  </div>
+</template>

@@ -1,0 +1,111 @@
+<template>
+    <div if:false={loading}>
+      <div if:true={showSelectServices}>
+        <div class="nds-b2b-configure-offer-container">
+          <div if:true={locations.length}>
+            <div for:each={locations} for:item="location" key={location.id}>
+              <c-gb-location-card
+			    location-ids={locationIds}
+				fiber-near-net-msg={fiberNearNetMsg}
+			    seller-flow ={sellerFlow}
+				json-data={omniJsonData}
+				is-auth-user={isAuthUser}
+        is-quote-config-step={isQuoteConfigStep}
+        is-quote-summary = {isQuoteSummary}
+                offer={location}
+                title={location.title}
+                expand={expand}
+                config={config}
+                enterprise-quote-id={enterpriseQuoteId}
+                working-cart-id={workingCartId}
+                is-type-order={isTypeOrder}
+				is-order-configurable={isOrderConfigurable}
+				read-only={readOnly}
+                is-checkout={isCheckout}
+                is-supp={isSupp}
+				is-ponr-flag={isPONRFlag}
+                is-order-details={isOrderDetails}
+                auth-flow={isAuthFlow}				
+				is-type-disconnect = {isTypeDisconnect}
+                mac-flow={macFlow}
+                has-order={hasOrder}
+                has-quote={hasQuote}
+				is-port-configure={isPortConfigure}
+                authenticated-flow={authenticatedFlow}
+				is-order-configure-step={IsOrderConfigureStep}
+              is-sub-section-not-completed-value={isSubSectionNotCompletedValue}
+			  >
+                <div slot="config">
+                  <div if:true={isPONRFlag} class="nds-b2b-error-message">This order can no longer be changed.</div>
+                  <div if:true={location.records.length} class="b2b-config-offer">
+                    <div if:false={hideConfigCard} for:each={location.records} for:item="cartItem" key={cartItem.id}>
+                      <c-gb-config-card 
+                          title={cartItem.name}
+                          solutioniderrormessage={solutionIdErrorMessage}
+                          zone = {zone}
+						  json-data={omniJsonData}
+						  seller-flow ={sellerFlow}
+              is-quote-summary = {isQuoteSummary}
+              is-quote-config-step={isQuoteConfigStep}
+						  is-auth-user={isAuthUser}
+                          offer={cartItem}
+                          expand={expand}
+                          parent={cartItem}
+                          int-loading={location.itemLoading}
+                          macd={cartItem.isAssets}
+                          read-only={readOnly}
+                          is-checkout={isCheckout}
+                          is-type-order={isTypeOrder}                     
+                          is-order-details={isOrderDetails}
+                          show-technical={showTechnical}
+                          vrf-error-msg={vRFErrorMsg} 
+						  component-id={componentId}
+                          enterprise-quote-id={enterpriseQuoteId}
+                          mac-flow={macFlow}  
+						  ddos-ipcount={ddosIpcount} 
+                          mac-pssa-error = {macPssaError}
+                          is-shop-loc-page={isShopLocPage} 
+						  show-port-icon={showPortIcon}
+						  hyperwan-config={hyperwanConfigure}
+						  auth-flow={isAuthFlow}
+						  user-profile={getUserProfile}
+					  	  port-config={portConfigure}
+                          >
+                        </c-gb-config-card>
+                    </div>
+                    <div class="configSection" if:true={isTypeOrder}>
+                    <c-order-location-details-english prefill={location.prefillSummary} layout="newport"></c-order-location-details-english>
+                    
+					<div if:true={showServiceInstallation}>
+					<c-order-installation-date-details-english  prefill={location.prefillSummary} layout="newport"></c-order-installation-date-details-english>
+                    </div>
+					
+					<div if:true={showBilling}>
+					<c-order-billing-details-english  prefill={location.prefillSummary} layout="newport"></c-order-billing-details-english>
+					</div>
+					 <div if:true={IsOrderConfigureSuppTerms}>
+						<c-order-terms-condition-supp-english prefill={location.prefillSummary} layout="newport"></c-order-terms-condition-supp-english>
+					</div>
+					 
+                </div>
+                  </div>
+                  <div if:false={location.records.length} class="nds-align_absolute-center b2b-config-offer">No items in cart</div>
+                </div>
+              </c-gb-location-card>
+              <div if:true={location.showTile} class="nds-p-left_large">
+                <div class="addOn">Optional Add Ons</div>
+                <c-gb-product-item for:each={location.addOnData} for:item="product" key={product.id} product={product} class="gbProductTile"></c-gb-product-item>
+              </div>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+      <div class="nds-m-bottom_xx-large" if:false={showSelectServices}>
+        <c-b2b-data-table-wrapper></c-b2b-data-table-wrapper>
+      </div>  
+    </div>
+    <div class="slds-spinner_container" if:true={loading}>
+      <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+    </div>
+  </template>

@@ -1,0 +1,31 @@
+<template>    
+  <template if:true={isCheckout}>
+    <template if:true={authFlow}>
+      <c-general-order-header enter-prise-quote-id={enterpriseQuoteId} is-type-disconnect={isTypeDisconnect}
+        is-auth-user={isAuthUser} seller-flow={sellerFlow} is-supp={isSupp}>
+      </c-general-order-header>
+    </template>
+  </template>
+  <c-gb-offer-config
+      working-cart-id={enterpriseQuoteId}
+      enterprise-quote-id={enterpriseQuoteId}
+      read-only={readOnly}
+      config={config}
+      expand={expand}
+      is-supp={isSupp}
+      is-type-order={isTypeOrder}
+      is-order-details={isOrderDetails}
+      is-checkout={isCheckout}
+      is-quote-summary={isQuoteSummary}
+      auth-flow={authFlow}
+	  seller-flow={sellerFlow}
+      mac-flow={macFlow}
+	  serviceid={serviceid}
+      has-order={hasOrder}
+      has-quote={hasQuote}
+	  is-auth-user={isAuthUser}
+	  is-type-disconnect ={isTypeDisconnect}
+    >
+    </c-gb-offer-config>
+  
+  </template>

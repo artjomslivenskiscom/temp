@@ -1,0 +1,19 @@
+.nds-b2b-error-message:before { 
+    content: "";
+    display: block;
+    position: absolute;
+    top: -1px;
+    left: 0;
+    bottom: 0;
+    width: calc(100% - 20px);
+    height: calc(100% - 0px);
+    border-left: solid 4px #c77400;
+}
+.nds-b2b-error-message{
+    position: relative;
+}
+
+.addOn {
+    font-size: 16px;
+    font-weight: 700;
+}

@@ -1,0 +1,40 @@
+<template>
+   
+    <div class="cardHeaderClass nds-b2b-error-message nds-warning-banner" if:true = {newAddressError}>
+	    <vlocity_cmt-icon theme = "nds" icon-name="utility:warning" size="x-small" color="#be8120" extraclass="nds-m-right_small nds-float_left nds-verticalcenter nds-m-top_x-small" ></vlocity_cmt-icon>
+        <span class="nds-warning-span">{newAddressErrorMessage}</span>
+        <vlocity_cmt-icon theme = "nds" icon-name="utility:close" size="small" color="#99968c" class="nds-float_right nds-m-right_medium nds-verticalcenter" data-name="showHyperWANError" onclick={handleMessageDelete}></vlocity_cmt-icon>
+    </div>
+    
+    <div if:true={showButtons} class="nds-size_12-of-12 nds-float_right nds-p-top_large buttonDiv">
+        <button onclick={openModal} class="nds-button nds-button_brand nds-float_right btn-save" disabled={disableButton}>Save new address</button>
+        <button onclick={cancel} class="nds-button nds-button_neutral nds-m-right_small nds-float_right">Cancel</button>
+    </div>
+    <div class="slds-spinner_container" if:true={loading}>
+        <lightning-spinner alternative-text="Loading" size="large" variant="brand"></lightning-spinner>
+    </div>
+    
+     <vlocity_cmt-modal size="small" theme="nds" class="nds-b2b-delete-offer nds-delete-header-bg gbModalContainer" >
+              <div slot="header">
+                <h1 style = "text-align:left;font-weight:400;color: black;" class="nds-b2b-modal-header">Add New Address</h1>
+              </div>
+              <div slot="content">
+               
+
+            
+
+                
+                
+                <div class="modalText"><h4 style=font-size:0.75rem;font-weight:400>Are you sure you want to add this new address?</h4></div>
+                <div class="modalText" style=font-size:0.75rem;font-weight:400>{address}, {city}, {state}, {zip}</div>
+
+               </div>
+               
+             
+              <div slot="footer">
+                <vlocity_cmt-button variant="neutral" theme="slds" onclick={closeModal} label="No" extraclass="nds-button nds-button_neutral"></vlocity_cmt-button>
+                <vlocity_cmt-button variant="destructive" extraclass="nds-button nds-button_brand save_btn" theme="slds" onclick={addAddress} label="Yes"></vlocity_cmt-button>
+              </div>
+     </vlocity_cmt-modal>
+
+</template>
